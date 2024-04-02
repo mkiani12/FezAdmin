@@ -20,6 +20,7 @@ export default defineNuxtConfig({
   },
 
   // OPTIMIZE: change session data
+  // TODO: remove signup form admin and get admin users & endpoints
   auth: {
     baseURL: process.env.BASE_URL,
     provider: {
