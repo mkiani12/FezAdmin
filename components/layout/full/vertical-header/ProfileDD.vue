@@ -40,7 +40,11 @@ const logout = () => {
   <!-- ---------------------------------------------- -->
   <!-- notifications DD -->
   <!-- ---------------------------------------------- -->
-  <v-menu :close-on-content-click="false">
+  <v-menu
+    :close-on-content-click="false"
+    origin="top right"
+    location="bottom end"
+  >
     <template v-slot:activator="{ props }">
       <v-btn
         class="profileBtn custom-hover-primary"
@@ -54,42 +58,7 @@ const logout = () => {
         </v-avatar>
       </v-btn>
     </template>
-    <v-sheet rounded="md" elevation="10" class="mt-2">
-      <v-list class="py-0" lines="one" density="compact">
-        <v-list-item color="primary">
-          <v-list-item-title class="text-body-1 text-center">
-            {{ fullName }}
-          </v-list-item-title>
-        </v-list-item>
-        <v-menu location="left">
-          <template v-slot:activator="{ props }">
-            <v-list-item v-bind="props" value="item2" color="primary">
-              <template v-slot:append>
-                <ChevronLeftIcon stroke-width="1.5" size="20" />
-              </template>
-              <v-list-item-title class="text-body-1">
-                {{ activeJob?.postTitle + " - " + activeJob?.project }}
-              </v-list-item-title>
-            </v-list-item>
-          </template>
-          <v-sheet rounded="md" elevation="10" class="mt-2">
-            <v-list class="py-0" lines="one" density="compact">
-              <v-list-item
-                v-for="job in userPositions"
-                :value="job.id"
-                :key="job.id"
-                :active="selectedJob == job.id"
-                color="primary"
-                @click="changeJob(job)"
-              >
-                <v-list-item-title class="text-body-1 text-center">
-                  {{ job.postTitle + " - " + job.project }}
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-sheet>
-        </v-menu>
-      </v-list>
+    <v-sheet rounded="md" elevation="10" class="mt-2" min-width="200">
       <div class="pt-4 pb-4 px-5 text-center">
         <v-btn
           to="/auth/login"

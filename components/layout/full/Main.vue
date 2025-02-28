@@ -13,7 +13,7 @@ const sDrawer = ref(true);
     app
     class="leftSidebar"
     v-model="sDrawer"
-    location="right"
+    location="left"
   >
     <!---Logo part -->
     <div class="pa-5">
@@ -24,7 +24,7 @@ const sDrawer = ref(true);
     <!-- ---------------------------------------------- -->
     <div>
       <perfect-scrollbar class="scrollnavbar">
-        <v-list class="pa-6 rtl">
+        <v-list class="pa-6">
           <!---Menu Loop -->
           <template v-for="(item, i) in sidebarMenu">
             <!---Item Sub Header -->
@@ -51,7 +51,7 @@ const sDrawer = ref(true);
     <div class="d-flex align-center justify-space-between w-100">
       <div>
         <v-btn
-          class="hidden-lg-and-up ms-md-3 ms-sm-5 ms-3 text-muted"
+          class="hidden-lg-and-up me-md-3 me-sm-5 me-3 text-muted"
           @click="sDrawer = !sDrawer"
           icon
           variant="flat"
@@ -60,13 +60,12 @@ const sDrawer = ref(true);
           <Menu2Icon size="20" stroke-width="1.5" />
         </v-btn>
         <!-- User Profile -->
-        <LayoutFullVerticalHeaderProfileDD />
       </div>
 
       <div>
         <!-- Notification -->
         <LayoutFullVerticalHeaderToggleThemeDD />
-        <LayoutFullVerticalHeaderNotificationDD />
+        <LayoutFullVerticalHeaderProfileDD />
       </div>
     </div>
   </v-app-bar>

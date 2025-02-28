@@ -3,8 +3,6 @@
 <script setup lang="ts"></script>
 <template>
   <v-app>
-    <v-locale-provider rtl>
-      <NuxtPage />
-    </v-locale-provider>
+    <NuxtPage />
   </v-app>
 </template>
