@@ -1,5 +1,4 @@
 import {
-  CopyIcon,
   LayoutDashboardIcon,
   FormsIcon,
   PaperclipIcon,
@@ -21,50 +20,29 @@ export interface menu {
 }
 
 const sidebarItem: menu[] = [
-  { header: "خانه" },
+  { header: "Home"},
   {
-    title: "داشبورد",
+    title: "Dashboard",
     icon: LayoutDashboardIcon,
     to: "/",
   },
+  { header: "Demo" },
   {
-    title: "لیست مدارک سازمانی",
+    title: "Requests",
     icon: PaperclipIcon,
     to: "/forms/list/documents",
   },
-  { header: "سیستم ها و روش ها" },
+  { header: "Emails" },
   {
-    title: "ساخت روند",
-    icon: CopyIcon,
-    to: "/process",
-  },
-  { header: "فرم ها" },
-  {
-    title: "فرم ها",
+    title: "Send",
     icon: FormsIcon,
     to: "/forms",
   },
-  // {
-  //   title: "Typography",
-  //   icon: TypographyIcon,
-  //   to: "/ui/typography",
-  // },
-  // {
-  //   title: "Shadow",
-  //   icon: CopyIcon,
-  //   to: "/ui/shadow",
-  // },
-  // { header: "Extra" },
-  // {
-  //   title: "Icons",
-  //   icon: MoodHappyIcon,
-  //   to: "/icons",
-  // },
-  // {
-  //   title: "Sample Page",
-  //   icon: ApertureIcon,
-  //   to: "/sample-page",
-  // },
+  {
+    title: "Recent",
+    icon: FormsIcon,
+    to: "/forms",
+  },
 ];
 
 export default sidebarItem;

@@ -11,27 +11,21 @@ definePageMeta({
 });
 
 const checkbox = ref(true);
-const username = ref("");
+const email = ref("");
 const password = ref("");
 const loading = ref(false);
 
 const login = async () => {
   loading.value = true;
   const credential = {
-    username: username.value,
+    email: email.value,
     password: password.value,
   };
   signIn(credential, { callbackUrl: "/" })
     .then(() => {
-      const selectedJob = useCookie("op:selected-job");
-      const { data } = useAuth();
-      if (!selectedJob.value) {
-        selectedJob.value = data.value?.userPositions[0].id?.toString();
-      }
       loading.value = false;
     })
     .catch((e) => {
-      console.log(e);
       loading.value = false;
     });
 };
@@ -49,24 +43,24 @@ const login = async () => {
           >
             <v-card-item class="pa-sm-8">
               <div class="d-flex justify-center py-4">
-                <LayoutFullLogo />
+                <LayoutFullLogo height="60" />
               </div>
               <div class="text-body-1 text-muted text-center mb-3">
-                Management Information System
+                Free & Easy
               </div>
 
               <v-row class="d-flex mb-3">
                 <v-col cols="12">
                   <v-text-field
-                    v-model="username"
-                    label="نام کاربری"
+                    v-model="email"
+                    label="Email"
                     color="primary"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
                     v-model="password"
-                    label="رمز عبور"
+                    label="Password"
                     type="password"
                     color="primary"
                     @keydown.enter="login"
@@ -76,7 +70,7 @@ const login = async () => {
                   <div class="d-flex flex-wrap align-center mr-n2">
                     <v-checkbox v-model="checkbox" color="primary">
                       <template v-slot:label class="text-body-1">
-                        مرا به خاطر بسپار
+                        Remember me
                       </template>
                     </v-checkbox>
                     <div class="ml-sm-auto">
@@ -84,7 +78,7 @@ const login = async () => {
                         to="/auth/forget-password"
                         class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium"
                       >
-                        فراموشی گذرواژه
+                        Forgot password
                       </NuxtLink>
                     </div>
                   </div>
@@ -98,7 +92,7 @@ const login = async () => {
                     :loading="loading"
                     @click="login"
                   >
-                    ورود
+                    Login
                   </v-btn>
                 </v-col>
               </v-row>
