@@ -1,7 +1,5 @@
-import type { boolean } from 'yup/lib/locale';
 <script setup lang="ts">
 import type { ProcessInflows } from "~/types/process";
-const { $event } = useNuxtApp();
 
 const props = defineProps<{
   items: ProcessInflows[];
@@ -26,10 +24,6 @@ const filteredItems = computed(() => {
     })
     .reverse();
 });
-
-const showDetails = (processId: string | number) => {
-  $event("process:open-logs", processId);
-};
 </script>
 <template>
   <div v-if="props.loading" class="text-center py-3">
@@ -49,7 +43,6 @@ const showDetails = (processId: string | number) => {
       :key="process.id"
       variant="outlined"
       class="mb-3"
-      @click="showDetails(process.id)"
     >
       <template #title> {{ process.title }} </template>
       <template v-slot:prepend>

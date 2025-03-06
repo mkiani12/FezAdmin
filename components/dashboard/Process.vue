@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const $axios = useApi();
-const { $listen, $off } = useNuxtApp();
 import type {
   ProcessActives,
   ProcessInflows,
@@ -67,14 +66,6 @@ const getDashboardData = async () => {
   await getEndedProcess();
   loading.value = false;
 };
-
-onMounted(() => {
-  $listen("op:job-changed", () => getDashboardData());
-  getDashboardData();
-});
-onBeforeUnmount(() => {
-  $off("op:job-changed");
-});
 </script>
 <template>
   <v-card class="overflow-hidden" height="600">

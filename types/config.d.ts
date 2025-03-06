@@ -1,12 +1,6 @@
 export {};
 import { Emitter } from "mitt";
 
-interface PluginsInjections {
-  $event: Emitter["emit"];
-  $listen: Emitter["on"];
-  $off: Emitter["off"];
-}
-
 declare module "#app" {
   interface NuxtApp extends PluginsInjections {}
 }

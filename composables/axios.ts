@@ -20,15 +20,5 @@ export const useApi = () => {
     },
   });
 
-  nuxtApp.$listen("op:job-change", () => {
-    instance.interceptors.request.use((config) => {
-      config.headers["Selected-Position"] = position.value;
-      return config;
-    });
-    setTimeout(() => {
-      nuxtApp.$event("op:job-changed");
-    }, 50);
-  });
-
   return instance;
 };

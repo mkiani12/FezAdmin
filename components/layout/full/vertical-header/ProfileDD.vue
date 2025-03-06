@@ -6,24 +6,8 @@ import {
 } from "vue-tabler-icons";
 
 const { signOut, data } = useAuth();
-const userInformation = data.value?.userInformations as UserInformations;
-const userPositions = data.value?.userPositions as JobData[];
 
 const selectedJob = useCookie("op:selected-job");
-const { $event } = useNuxtApp();
-
-const fullName = computed((): string => {
-  return userInformation.firstname + " " + userInformation.lastname;
-});
-
-const activeJob = computed((): JobData | undefined => {
-  return userPositions.find((p) => p.id == selectedJob.value);
-});
-
-const changeJob = (job: JobData) => {
-  selectedJob.value = job.id?.toString();
-  $event("op:job-change");
-};
 
 const logout = () => {
   const cookies = {
