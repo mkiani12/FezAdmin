@@ -15,8 +15,6 @@ export default defineNuxtConfig({
   ],
   // todo: change icons 
 
-  plugins: ["~/plugins/plugins"],
-
   i18n: {
     vueI18n: "~/lang/i18n.config.ts", // if you are using custom path, default
   },
