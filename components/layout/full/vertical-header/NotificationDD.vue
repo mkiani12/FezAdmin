@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BellRingingIcon } from "vue-tabler-icons";
+import NotificationIcon from "~icons/material-symbols/notifications-outline-rounded";
 
 const notificationBadge = ref(true);
 </script>
@@ -19,7 +19,7 @@ const notificationBadge = ref(true);
           offset-x="-5"
           offset-y="-3"
         >
-          <BellRingingIcon stroke-width="1.5" size="22" />
+          <v-icon :icon="NotificationIcon" />
         </v-badge>
       </v-btn>
     </template>

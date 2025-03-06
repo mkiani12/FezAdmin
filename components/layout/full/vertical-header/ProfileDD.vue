@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {
-  ChevronLeftIcon,
-  ListCheckIcon,
-  UserCircleIcon,
-} from "vue-tabler-icons";
+import UserIcon from "~icons/material-symbols/account-circle-full";
 
 const { signOut, data } = useAuth();
 
@@ -37,8 +33,7 @@ const logout = () => {
         icon
       >
         <v-avatar size="35" color="gray">
-          <!-- <img src="/images/users/avatar-1.jpg" height="35" alt="user" /> -->
-          <UserCircleIcon stroke-width="1.5" size="35" />
+          <v-icon :icon="UserIcon" :size="24" />
         </v-avatar>
       </v-btn>
     </template>

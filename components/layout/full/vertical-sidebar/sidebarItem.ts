@@ -1,8 +1,8 @@
-import {
-  LayoutDashboardIcon,
-  FormsIcon,
-  PaperclipIcon,
-} from "vue-tabler-icons";
+import DashboardIcon from "~icons/material-symbols/dashboard-outline-rounded";
+import DemoRequestsIcon from "~icons/material-symbols/record-voice-over-outline-rounded";
+import DemoAddUserIcon from "~icons/material-symbols/person-add-outline-rounded";
+import RecentMailsIcon from "~icons/material-symbols/markunread-mailbox-outline-rounded";
+import SendMailIcon from "~icons/material-symbols/gmail-add-on";
 
 export interface menu {
   header?: string;
@@ -17,35 +17,36 @@ export interface menu {
   disabled?: boolean;
   type?: string;
   subCaption?: string;
+  size?: number;
 }
 
 const sidebarItem: menu[] = [
-  { header: "Home"},
+  { header: "Home" },
   {
     title: "Dashboard",
-    icon: LayoutDashboardIcon,
+    icon: DashboardIcon,
     to: "/",
   },
   { header: "Demo" },
   {
     title: "Requests",
-    icon: PaperclipIcon,
+    icon: DemoRequestsIcon,
     to: "/demo",
   },
   {
     title: "Add User",
-    icon: PaperclipIcon,
+    icon: DemoAddUserIcon,
     to: "/demo/add",
   },
   { header: "Emails" },
   {
     title: "Recent Mails",
-    icon: FormsIcon,
+    icon: RecentMailsIcon,
     to: "/email",
   },
   {
     title: "Send Mail",
-    icon: FormsIcon,
+    icon: SendMailIcon,
     to: "/email/send",
   },
 ];

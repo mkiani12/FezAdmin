@@ -5,7 +5,7 @@ const themeCookie = useCookie("theme:mode");
 
 interface ThemeSwitcherTheme {
   name: string;
-  icon: string;
+  icon: string | any;
 }
 
 const props = defineProps<{

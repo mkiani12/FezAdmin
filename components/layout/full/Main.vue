@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, shallowRef } from "vue";
 import sidebarItems from "@/components/layout/full/vertical-sidebar/sidebarItem";
-import { Menu2Icon } from "vue-tabler-icons";
+import MenuIcon from "~icons/material-symbols/menu-rounded";
 const sidebarMenu = shallowRef(sidebarItems);
 const sDrawer = ref(true);
 </script>
@@ -36,8 +36,9 @@ const sDrawer = ref(true);
 
             <!---Single Item-->
             <LayoutFullVerticalSidebarNavItem
-              :item="item"
               v-else
+              :item="item"
+              :size="item.size"
               class="leftPadding"
             />
             <!---End Single Item-->
@@ -51,13 +52,13 @@ const sDrawer = ref(true);
     <div class="d-flex align-center justify-space-between w-100">
       <div>
         <v-btn
-          class="hidden-lg-and-up me-md-3 me-sm-5 me-3 text-muted"
+          class="hidden-lg-and-up ml-md-3 ml-sm-5 ml-3 text-muted"
           @click="sDrawer = !sDrawer"
           icon
           variant="flat"
           size="small"
         >
-          <Menu2Icon size="20" stroke-width="1.5" />
+          <v-icon :icon="MenuIcon" />
         </v-btn>
         <!-- User Profile -->
       </div>

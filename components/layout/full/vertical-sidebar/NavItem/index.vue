@@ -1,6 +1,6 @@
 <script setup>
 import Icon from "../Icon.vue";
-const props = defineProps({ item: Object, level: Number });
+const props = defineProps({ item: Object, size: Number });
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const props = defineProps({ item: Object, level: Number });
   >
     <!---If icon-->
     <template v-slot:prepend>
-      <Icon :item="item.icon" :level="level" />
+      <Icon :item="item.icon" :size="size" />
     </template>
     <v-list-item-title>{{ item.title }}</v-list-item-title>
     <!---If Caption-->
