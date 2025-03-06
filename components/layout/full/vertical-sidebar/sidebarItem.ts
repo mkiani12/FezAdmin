@@ -30,18 +30,23 @@ const sidebarItem: menu[] = [
   {
     title: "Requests",
     icon: PaperclipIcon,
-    to: "/forms/list/documents",
+    to: "/demo",
+  },
+  {
+    title: "Add User",
+    icon: PaperclipIcon,
+    to: "/demo/add",
   },
   { header: "Emails" },
   {
-    title: "Send",
+    title: "Recent Mails",
     icon: FormsIcon,
-    to: "/forms",
+    to: "/email",
   },
   {
-    title: "Recent",
+    title: "Send Mail",
     icon: FormsIcon,
-    to: "/forms",
+    to: "/email/send",
   },
 ];
 

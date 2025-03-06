@@ -10,17 +10,24 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@vueuse/nuxt",
     "@nuxtjs/i18n",
+    "unplugin-icons/nuxt",
+    "@nuxtjs/google-fonts",
   ],
+  // todo: change icons 
 
   plugins: ["~/plugins/plugins"],
 
-  // TODO: add languages variables
   i18n: {
     vueI18n: "~/lang/i18n.config.ts", // if you are using custom path, default
   },
 
-  // OPTIMIZE: change session data
-  // TODO: remove signup form admin and get admin users & endpoints
+  googleFonts: {
+    families: {
+      Outfit: true, // Defaults to all weights/styles
+    },
+    display: "swap",
+  },
+
   auth: {
     baseURL: process.env.BASE_URL,
     provider: {
@@ -43,20 +50,10 @@ export default defineNuxtConfig({
         },
       },
 
-      // TODO: Change data session form
-      sessionDataType: {
-        userInformations: "UserInformations",
-        userPositions: "JobData[]",
-      },
-
       token: {
         maxAgeInSeconds: 60 * 60 * 24,
       },
-      // OPTIMIZE: Enable this if you want to use the refreshToken feature
-      // @ts-ignore
-      // refreshToken: {
-      //   maxAgeInSeconds: 60 * 60 * 24,
-      // },
+ 
     },
     globalAppMiddleware: {
       isEnabled: false,
@@ -89,4 +86,5 @@ export default defineNuxtConfig({
 
   devServerHandlers: [],
   hooks: {},
+  compatibilityDate: "2025-03-06",
 });

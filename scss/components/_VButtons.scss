@@ -1,3 +1,4 @@
+@use "../variables" as vars;
 //
 // Light Buttons
 //
@@ -8,7 +9,7 @@
     &:active,
     &:focus {
       background-color: rgb(var(--v-theme-primary)) !important;
-      color: $white !important;
+      color: vars.$white !important;
     }
   }
   &.bg-lightsecondary {
@@ -16,7 +17,7 @@
     &:active,
     &:focus {
       background-color: rgb(var(--v-theme-secondary)) !important;
-      color: $white !important;
+      color: vars.$white !important;
     }
   }
   &.text-facebook {
@@ -24,7 +25,7 @@
     &:active,
     &:focus {
       background-color: rgb(var(--v-theme-facebook)) !important;
-      color: $white !important;
+      color: vars.$white !important;
     }
   }
   &.text-twitter {
@@ -32,7 +33,7 @@
     &:active,
     &:focus {
       background-color: rgb(var(--v-theme-twitter)) !important;
-      color: $white !important;
+      color: vars.$white !important;
     }
   }
   &.text-linkedin {
@@ -40,14 +41,14 @@
     &:active,
     &:focus {
       background-color: rgb(var(--v-theme-linkedin)) !important;
-      color: $white !important;
+      color: vars.$white !important;
     }
   }
 }
 
 .v-btn {
   text-transform: capitalize;
-  letter-spacing: $btn-letter-spacing;
+  letter-spacing: vars.$btn-letter-spacing;
 }
 .v-btn--icon.v-btn--density-default {
   width: calc(var(--v-btn-height) + 6px);

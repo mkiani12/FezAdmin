@@ -1,6 +1,7 @@
+@use "../variables" as vars;
 .elevation-10 {
-  box-shadow: $box-shadow !important;
+  box-shadow: vars.$box-shadow !important;
 }
 .v-theme--dark .elevation-10 {
-  box-shadow: $box-shadow-dark !important;
+  box-shadow: vars.$box-shadow-dark !important;
 }

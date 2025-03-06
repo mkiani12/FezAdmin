@@ -1,3 +1,5 @@
+@use "../variables" as vars;
+
 /*This is for the logo*/
 .leftSidebar {
   box-shadow: none !important;
@@ -40,7 +42,7 @@
   /*General Menu css*/
   .v-list-group__items .v-list-item,
   .v-list-item {
-    border-radius: $border-radius-root + 4;
+    border-radius: vars.$border-radius-root + 4;
     padding-inline-start: calc(12px + var(--indent-padding) / 10) !important;
 
     margin: 0 0 2px;
@@ -115,7 +117,7 @@
     }
 
     .leftSidebar:hover {
-      box-shadow: $box-shadow !important;
+      box-shadow: vars.$box-shadow !important;
 
       .mini-icon {
         display: none;
@@ -127,7 +129,7 @@
     }
 
     .v-theme--dark .leftSidebar:hover {
-      box-shadow: $box-shadow-dark !important;
+      box-shadow: vars.$box-shadow-dark !important;
     }
 
     .v-navigation-drawer--expand-on-hover:hover {
