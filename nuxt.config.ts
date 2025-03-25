@@ -13,7 +13,6 @@ export default defineNuxtConfig({
     "unplugin-icons/nuxt",
     "@nuxtjs/google-fonts",
   ],
-  // todo: change icons 
 
   i18n: {
     vueI18n: "~/lang/i18n.config.ts", // if you are using custom path, default
@@ -35,15 +34,15 @@ export default defineNuxtConfig({
       },
       endpoints: {
         signIn: {
-          path: "/auth/login",
-          method: "post",
-        },
-        signUp: {
-          path: "/auth/signup",
+          path: "/admin/auth/token",
           method: "post",
         },
         getSession: {
-          path: "/auth/session",
+          path: "/admin/auth/session",
+          method: "get",
+        },
+        signOut: {
+          path: "/auth/logout",
           method: "get",
         },
       },
@@ -51,10 +50,9 @@ export default defineNuxtConfig({
       token: {
         maxAgeInSeconds: 60 * 60 * 24,
       },
- 
     },
     globalAppMiddleware: {
-      isEnabled: false,
+      isEnabled: true,
     },
   },
 
