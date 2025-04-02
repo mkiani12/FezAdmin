@@ -1,33 +1,38 @@
 <script setup lang="ts">
-import { ref } from "vue";
+useHead({
+  title: "Add a Demo",
+});
 
-// Reactive state for the form fields and loading state
+// State for form fields and loading
 const email = ref("");
-const content = ref("");
+const companyName = ref("");
+const message = ref("");
 const isSending = ref(false);
 
-// API instance (assuming your useApi composable wraps axios)
+// API instance from useApi
 const axios = useApi();
 
-// Function to send a demo email
+// Send demo email
 const sendDemoEmail = async () => {
   if (!email.value) {
-    console.error("Email is required to send a demo.");
+    console.error("Email is required.");
     return;
   }
   isSending.value = true;
   try {
-    await axios.post("/admin/demo/send", {
+    await axios.post("/admin/email/demo", {
       email: email.value,
-      content: content.value,
+      company_name: companyName.value,
+      message: message.value,
     });
-    // Optionally, show a success notification here
-    console.log("Demo email sent successfully!");
-    // Clear the form fields after a successful send
+    // Show success message
+    console.log("Demo email sent!");
+    // Reset the form
     email.value = "";
-    content.value = "";
+    companyName.value = "";
+    message.value = "";
   } catch (error) {
-    console.error("Error sending demo email:", error);
+    console.error("Error sending email:", error);
   } finally {
     isSending.value = false;
   }
@@ -49,11 +54,21 @@ const sendDemoEmail = async () => {
               class="mb-3"
             />
 
-            <!-- Optional Content Field -->
+            <!-- Company Name Field -->
+            <v-text-field
+              label="Company Name"
+              v-model="companyName"
+              placeholder="Enter company name"
+              required
+              class="mb-3"
+            />
+
+            <!-- Message Field -->
             <v-textarea
-              label="Content (Optional)"
-              v-model="content"
-              placeholder="Enter optional content"
+              label="Message"
+              v-model="message"
+              placeholder="Enter your message"
+              required
               class="mb-3"
             />
 

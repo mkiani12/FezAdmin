@@ -1,26 +1,37 @@
 <script setup lang="ts">
-// Define the Email interface
+useHead({
+  title: "Recent Emails",
+});
+
+// Email shape
 interface Email {
   id: number;
-  recipient: string;
+  receiver: string;
   subject: string;
   content: string;
-  sent_at: string;
+  created_at: string; // changed from sent_at to created_at
   status: string; // e.g. "sent", "failed"
+  status_updated_at: string;
+  deleted_at: string | null;
+  updated_at: string;
+  user_id: number;
 }
 
-// Reactive state
+// State variables
 const emails = ref<Email[]>([]);
 const isLoading = ref(false);
 
-// API instance
+// API setup
 const axios = useApi();
 
-// Fetch recent emails from your API
+// Fetch emails from API
 const fetchEmails = async () => {
   isLoading.value = true;
   try {
-    const { data } = await axios.get("/api/recent-emails"); // Replace with your actual endpoint
+    const { data } = await axios.get("/admin/email/history");
+
+    console.log(data);
+
     if (data) {
       emails.value = data as Email[];
     }
@@ -31,7 +42,7 @@ const fetchEmails = async () => {
   }
 };
 
-// Compute statistics
+// Compute email stats
 const totalEmails = computed(() => emails.value.length);
 const sentEmails = computed(
   () => emails.value.filter((email) => email.status === "sent").length
@@ -40,7 +51,7 @@ const failedEmails = computed(
   () => emails.value.filter((email) => email.status === "failed").length
 );
 
-// Utility function for a short content preview (limit to 50 characters)
+// Shorten content to 50 characters max
 const getPreview = (content: string) => {
   return content.length > 50 ? content.substring(0, 50) + "..." : content;
 };
@@ -53,7 +64,7 @@ onMounted(() => {
 <template>
   <SharedUiParentCard title="Recent Emails">
     <v-container class="px-6">
-      <!-- Statistics Cards -->
+      <!-- Stats Cards -->
       <v-row class="mb-4">
         <v-col cols="12" sm="4">
           <v-card>
@@ -81,14 +92,14 @@ onMounted(() => {
         </v-col>
       </v-row>
 
-      <!-- Data Table for Emails -->
+      <!-- Email Data Table -->
       <v-data-table
         :headers="[
           { title: 'ID', key: 'id' },
-          { title: 'Recipient', key: 'recipient' },
+          { title: 'Receiver', key: 'receiver' },
           { title: 'Subject', key: 'subject' },
           { title: 'Content Preview', key: 'preview' },
-          { title: 'Sent At', key: 'sent_at' },
+          { title: 'Created At', key: 'created_at' },
           { title: 'Status', key: 'status' },
         ]"
         :items="emails"
@@ -100,7 +111,7 @@ onMounted(() => {
           {{ getPreview(item.content) }}
         </template>
 
-        <!-- Status Column with a Chip -->
+        <!-- Status Column with Chip -->
         <template #[`item.status`]="{ item }">
           <v-chip :color="item.status === 'sent' ? 'green' : 'red'" dark>
             {{ item.status }}

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+useHead({
+  title: "Demo requests",
+});
+
 import RejectIcon from "~icons/material-symbols/close-rounded";
 import AcceptIcon from "~icons/material-symbols/check-rounded";
 

@@ -5,6 +5,13 @@ dotenv.config({
 });
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: "FEZtool - Free and Easy",
+      titleTemplate: "%s - FEZtool",
+    },
+  },
+
   modules: [
     "@sidebase/nuxt-auth",
     "@pinia/nuxt",

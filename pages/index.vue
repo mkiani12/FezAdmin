@@ -1,4 +1,7 @@
 <script setup lang="ts">
+useHead({
+  title: "Dashboard",
+});
 /*Call Components*/
 import LinkCards from "~/components/dashboard/LinkCards.vue";
 import Process from "~/components/dashboard/Process.vue";
