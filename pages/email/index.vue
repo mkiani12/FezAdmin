@@ -23,6 +23,7 @@ const isLoading = ref(false);
 
 // API setup
 const axios = useApi();
+const notifier = useSnackbarStore();
 
 // Fetch emails from API
 const fetchEmails = async () => {
@@ -30,13 +31,12 @@ const fetchEmails = async () => {
   try {
     const { data } = await axios.get("/admin/email/history");
 
-    console.log(data);
-
     if (data) {
       emails.value = data as Email[];
     }
   } catch (error) {
     console.error("Error fetching emails:", error);
+    notifier.handleCatch(error);
   } finally {
     isLoading.value = false;
   }

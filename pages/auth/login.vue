@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const { signIn } = useAuth();
+const notifier = useSnackbarStore();
 /*-For Set Blank Layout-*/
 definePageMeta({
   layout: "blank",
@@ -27,6 +28,7 @@ const login = async () => {
     })
     .catch((e) => {
       loading.value = false;
+      notifier.handleCatch(e);
     });
 };
 </script>

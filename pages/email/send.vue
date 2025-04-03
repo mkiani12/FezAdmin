@@ -6,12 +6,14 @@ const singleEmail = ref(null);
 const singleSubject = ref("");
 const singleContent = ref("");
 const isSendingSingle = ref(false); // Tracks loading state during API call
+const singleValidated = ref(false);
 
 // Multiple emails state
 const manyEmails = ref<string[]>([]);
 const manySubject = ref("");
 const manyContent = ref("");
 const isSendingMany = ref(false); // Tracks loading state during API call
+const manyValidated = ref(false);
 
 // Type for email options (display and raw value)
 interface EmailOption {
@@ -24,6 +26,8 @@ const emailOptions = ref<EmailOption[]>([]);
 
 // API setup
 const axios = useApi();
+const notifier = useSnackbarStore();
+const { validationRules: rules } = useValidation();
 
 // Fetch registered emails
 const fetchRegisteredEmails = async () => {
@@ -38,6 +42,7 @@ const fetchRegisteredEmails = async () => {
     }));
   } catch (error) {
     console.error("Error fetching registered emails:", error);
+    notifier.handleCatch(error);
   }
 };
 
@@ -60,13 +65,6 @@ const toggleSelectAllEmails = () => {
   }
 };
 
-// Extract email from selected value
-const extractEmail = (selected: any): string => {
-  return typeof selected === "object" && selected !== null && selected.value
-    ? selected.value
-    : selected;
-};
-
 // Send single email
 const sendSingleEmail = async () => {
   if (!singleEmail.value || !singleSubject.value || !singleContent.value) {
@@ -79,13 +77,16 @@ const sendSingleEmail = async () => {
     await axios.post("/admin/email/send", {
       subject: singleSubject.value,
       content: singleContent.value,
-      emails: [extractEmail(singleEmail.value)], // Extract email string from selection
+      emails: [singleEmail.value], // Extract email string from selection
     });
     // Reset fields after a successful send
     singleSubject.value = "";
     singleContent.value = "";
+
+    notifier.showMessage("Email sent successfully!", "success");
   } catch (error) {
     console.error("Error sending email:", error);
+    notifier.handleCatch(error);
   } finally {
     isSendingSingle.value = false; // Hide loading indicator
   }
@@ -107,13 +108,15 @@ const sendManyEmail = async () => {
     await axios.post("/admin/email/send", {
       subject: manySubject.value,
       content: manyContent.value,
-      emails: manyEmails.value.map(extractEmail), // Map selections to email strings
+      emails: manyEmails.value,
     });
     // Clear the fields after successful sending
     manySubject.value = "";
     manyContent.value = "";
+    notifier.showMessage("Emails are sent successfully!", "success");
   } catch (error) {
     console.error("Failed to send emails to multiple recipients:", error);
+    notifier.handleCatch(error);
   } finally {
     isSendingMany.value = false; // Hide loading indicator
   }
@@ -134,12 +137,13 @@ onMounted(() => {
           <v-card>
             <v-card-title class="px-6 py-3">Send to One</v-card-title>
             <v-card-text>
-              <v-form>
+              <v-form v-model="singleValidated">
                 <!-- Text input for the email subject -->
                 <v-text-field
                   class="mb-3"
                   label="Subject"
                   v-model="singleSubject"
+                  :rules="[rules.required]"
                   placeholder="Enter email subject"
                 />
                 <!-- Combobox to enter/select the recipient email address -->
@@ -150,6 +154,8 @@ onMounted(() => {
                   :items="emailOptions"
                   item-title="text"
                   item-value="value"
+                  :rules="[rules.required, rules.email]"
+                  :return-object="false"
                   placeholder="Enter or select recipient email"
                 />
                 <!-- Textarea for writing the email content -->
@@ -157,12 +163,14 @@ onMounted(() => {
                   class="mb-3"
                   label="Content"
                   v-model="singleContent"
+                  :rules="[rules.required]"
                   placeholder="Enter email content"
                 />
                 <!-- Button to send the email -->
                 <v-btn
                   color="primary"
                   :loading="isSendingSingle"
+                  :disabled="!singleValidated"
                   @click="sendSingleEmail"
                 >
                   Send Email
@@ -177,12 +185,13 @@ onMounted(() => {
           <v-card>
             <v-card-title class="px-6 py-3">Send to Many</v-card-title>
             <v-card-text>
-              <v-form>
+              <v-form v-model="manyValidated">
                 <!-- Input field for the email subject -->
                 <v-text-field
                   class="mb-3"
                   label="Subject"
                   v-model="manySubject"
+                  :rules="[rules.required]"
                   placeholder="Enter email subject"
                 />
                 <!-- Combobox for multiple recipient selection with a toggle option in the dropdown -->
@@ -195,6 +204,8 @@ onMounted(() => {
                   chips
                   item-title="text"
                   item-value="value"
+                  :rules="[rules.required, rules.emails]"
+                  :return-object="false"
                   placeholder="Select or enter recipients"
                 >
                   <!-- Prepend an option in the dropdown to toggle the selection of all emails -->
@@ -216,12 +227,14 @@ onMounted(() => {
                   class="mb-3"
                   label="Content"
                   v-model="manyContent"
+                  :rules="[rules.required]"
                   placeholder="Enter email content"
                 />
                 <!-- Button to send the email to all selected recipients -->
                 <v-btn
                   color="primary"
                   :loading="isSendingMany"
+                  :disabled="!manyValidated"
                   @click="sendManyEmail"
                 >
                   Send Email

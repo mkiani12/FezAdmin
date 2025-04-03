@@ -22,6 +22,7 @@ interface Request {
 
 // API instance
 const axios = useApi();
+const notifier = useSnackbarStore();
 
 // Reactive state for storing requests
 const requests = ref<Request[]>([]);
@@ -35,6 +36,7 @@ const fetchRequests = async () => {
     }
   } catch (error) {
     console.error("Error fetching requests:", error);
+    notifier.handleCatch(error);
   }
 };
 
@@ -48,8 +50,11 @@ const updateRequestStatus = async (id: number, status: boolean) => {
     // Update UI state
     const request = requests.value.find((r: Request) => r.id === id);
     if (request) request.approved = status;
+
+    notifier.showMessage("Request updated!", "success");
   } catch (error) {
     console.error(`Error updating request ${id} to ${vote}:`, error);
+    notifier.handleCatch(error);
   }
 };
 
